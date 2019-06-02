@@ -1,0 +1,5 @@
+bitbake-cookerdaemon.log
+cache/
+downloads/
+sstate-cache/
+tmp/
