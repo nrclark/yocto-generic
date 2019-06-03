@@ -1,4 +1,0 @@
-SANITY_VERSION 1
-TMPDIR /home/nick/work/yocto_experiments/tmp
-SSTATE_DIR /home/nick/work/yocto_experiments/sstate-cache
-NATIVELSBSTRING fedora-29

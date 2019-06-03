@@ -3,3 +3,4 @@ cache/
 downloads/
 sstate-cache/
 tmp/
+conf/sanity_info
