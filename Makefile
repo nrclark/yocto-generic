@@ -1,6 +1,11 @@
 SHELL := /bin/bash
 IMAGE := core-image-custom
 
+all default: build
+
+distclean: clean
+	rm -rf downloads
+
 clean:
 	rm -rf cache/ bitbake-cookerdaemon.log sstate-cache/ tmp
 
