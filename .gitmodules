@@ -4,5 +4,4 @@
 
 [submodule "meta-openembedded"]
 	path = submodules/meta-openembedded
-	url = git://git.openembedded.org/meta-openembedded
-
+	url = https://git.openembedded.org/meta-openembedded
