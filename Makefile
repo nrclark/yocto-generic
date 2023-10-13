@@ -76,6 +76,8 @@ launch:
 	    $(if $(BOOT_PARAMS),bootparams="$(BOOT_PARAMS)",))
 
 showdeps:
-	@cat layers/poky/documentation/poky.ent | tr -d '\n' | \
-		grep -Po '(?<=UBUNTU_HOST_PACKAGES_ESSENTIAL)[^>]+' | tr -d '["\\]' | \
-		tr ' ' '\n' | sort | uniq | grep .
+	@cat layers/poky/documentation/poky.yaml.in | \
+	sed ':a;N;$$!ba;s/\\\n//g' | \
+	grep UBUNTU_HOST_PACKAGES_ESSENTIAL | \
+	sed -E 's/^[^"]+"//g' | \
+	sed -E 's/[ \t]+/ /g'
