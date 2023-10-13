@@ -1,12 +1,13 @@
 {
     "files.watcherExclude": {
-        "*.sock": true,
-        "**/.git/**": true,
-        "**/.hg/store/**": true,
-        "**/cache/**": true,
-        "**/downloads/**": true,
-        "**/sstate-cache/**": true,
-        "**/tmp/**": true,
-        "bitbake.lock": true
-    }
+        "**": true,
+        "*": true,
+        "**/**/**": true,
+        "**/**/*": true
+    },
+    "files.watcherInclude": [
+        "/conf/**",
+        "/layers/**",
+        "/Makefile"
+    ]
 }
