@@ -1,0 +1,15 @@
+[Unit]
+Description=Bitbake hash-equivalence server
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/bitbake-hashserv --bind :8686
+Restart=always
+RestartSec=1
+StartLimitBurst=8
+DynamicUser=yes
+PrivateTmp=true
+WorkingDirectory=/tmp
+
+[Install]
+WantedBy=multi-user.target

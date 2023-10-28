@@ -1,0 +1,36 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:          hashserv
+# Required-Start:    $network $remote_fs $syslog
+# Required-Stop:     $network $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Bitbake hash-equivalence server
+# Description:       This service is used by Bitbake for sharing an sstate
+#                    cache between different build machines. For reference,
+#                    see documentation on BB_HASHSERVE and friends.
+
+### END INIT INFO
+
+if [ "$#" -ne 1 ]; then
+fi
+
+case "$1" in
+    start)
+        ;;
+
+    stop)
+        ;;
+
+    restart)
+        ;;
+
+    status)
+        ;;
+
+    *)
+        echo "Unknown command $1"
+        ;;
+
+esac
