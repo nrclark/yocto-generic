@@ -1,0 +1,7 @@
+[Unit]
+Description=Bitbake sstate cache-prune
+
+[Service]
+Type=oneshot
+ExecStart=sh -c 'mkdir -p /var/www/sstate-cache && \
+    /usr/bin/service-sstate-cache.py prune -s64G /var/www/sstate-cache'
