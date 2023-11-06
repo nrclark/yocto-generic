@@ -1,5 +1,5 @@
 SHELL := /bin/bash
-IMAGE := core-image-custom
+IMAGE := sstate-server-image
 
 all default: build
 
@@ -22,6 +22,9 @@ shell:
 	unset MAKEFLAGS && \
 	unset MAKELEVEL && \
 	$(SHELL) --rcfile <(cat ~/.bashrc; echo "PS1=\"$(NEW_PS1) \"") || exit 0
+
+ssh:
+	exec ssh root@127.0.0.1 -p2222 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
 
 #------------------------------------------------------------------------------#
 
@@ -69,11 +72,23 @@ endif
 # user is in. This can also be done permanently be editing your
 # system's sysctl.conf (commonly /etc/sysctl.conf).
 
+QEMU_FWD_ARGS := \
+    hostfwd=tcp:127.0.0.1:2222-:22 \
+    hostfwd=tcp:127.0.0.1:2323-:23 \
+    hostfwd=tcp:127.0.0.1:8686-:8686 \
+    hostfwd=tcp:127.0.0.1:8080-:80 \
+
+QB_SLIRP_OPT := -netdev user,id=net0,$(subst $(SPACE),$(COMMA),$(strip $(QEMU_FWD_ARGS)))
+
 launch:
 	source layers/poky/oe-init-build-env $(abspath .) && \
-	export IMAGE_LINK_NAME=core-image-custom-qemux86-64 && \
-	runqemu qemux86-64 $(IMAGE) $(strip nographic serial kvm slirp \
-	    $(if $(BOOT_PARAMS),bootparams="$(BOOT_PARAMS)",))
+	export IMAGE_LINK_NAME=$(IMAGE)-qemux86-64 && \
+	export QB_SLIRP_OPT="$(QB_SLIRP_OPT)" && \
+	runqemu qemux86-64 $(IMAGE) $(strip \
+	    nographic serial kvm slirp \
+	    $(if $(BOOT_PARAMS),bootparams="$(BOOT_PARAMS)",) \
+	    qemuparams="-m 1024" \
+	)
 
 showdeps:
 	@cat layers/poky/documentation/poky.yaml.in | \
